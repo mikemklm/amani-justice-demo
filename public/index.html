@@ -403,15 +403,26 @@ async function processUserAudio(blob) {
 }
 
 async function callTranscribe(blob) {
-  // Envoyer le webm directement — Whisper accepte webm, mp4, ogg, wav
   const res = await fetch('/api/transcribe', {
     method: 'POST',
     headers: { 'Content-Type': blob.type || 'audio/webm' },
     body: blob,
   });
-  if (!res.ok) throw new Error('Transcription ' + res.status);
-  const d = await res.json();
-  return d.text || '';
+  
+  const text = await res.text();
+  console.log('Transcribe raw response:', text);
+  
+  if (!res.ok) {
+    showBanner('Erreur: ' + text.slice(0, 80), 'error');
+    throw new Error('Transcription ' + res.status + ': ' + text.slice(0, 50));
+  }
+  
+  try {
+    const d = JSON.parse(text);
+    return d.text || '';
+  } catch {
+    throw new Error('JSON invalide: ' + text.slice(0, 50));
+  }
 }
 // ═══════════════════════════════════════════════════════
 // TTS
