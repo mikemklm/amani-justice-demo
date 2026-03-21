@@ -369,8 +369,8 @@ async function processUserAudio(blob) {
   setOrbState('thinking');
   setStatus('Transcription en cours…');
   try {
-    const wav = await blobToWav(blob);
-    const transcription = await callTranscribe(wav);
+    // Envoyer directement le webm — pas besoin de convertir en WAV
+    const transcription = await callTranscribe(blob);
 
     if (!transcription || transcription.trim().length < 2) {
       setStatus('Audio non compris — je réecoute…');
@@ -402,26 +402,17 @@ async function processUserAudio(blob) {
   }
 }
 
-async function callTranscribe(wavBuffer) {
+async function callTranscribe(blob) {
+  // Envoyer le webm directement — Whisper accepte webm, mp4, ogg, wav
   const res = await fetch('/api/transcribe', {
-    method:'POST', headers:{'Content-Type':'audio/wav'}, body:wavBuffer
+    method: 'POST',
+    headers: { 'Content-Type': blob.type || 'audio/webm' },
+    body: blob,
   });
   if (!res.ok) throw new Error('Transcription ' + res.status);
   const d = await res.json();
   return d.text || '';
 }
-
-async function callChat(question) {
-  const res = await fetch('/api/chat', {
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({ question, lang:currentLang, history:history.slice(-6) })
-  });
-  if (!res.ok) throw new Error('Chat ' + res.status);
-  const d = await res.json();
-  return d.response || 'Désolée, une erreur est survenue.';
-}
-
 // ═══════════════════════════════════════════════════════
 // TTS
 // ═══════════════════════════════════════════════════════
