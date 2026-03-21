@@ -435,15 +435,43 @@ function speak(text, lang) {
   return new Promise(resolve => {
     if (!window.speechSynthesis) { resolve(); return; }
     window.speechSynthesis.cancel();
+
     const u = new SpeechSynthesisUtterance(text);
-    u.lang  = {fr:'fr-FR',ar:'ar-SA',wo:'fr-FR'}[lang]||'fr-FR';
-    u.rate  = 0.92; u.pitch = 1.05;
-    const vs = window.speechSynthesis.getVoices();
-    const vf = vs.find(v => v.lang.startsWith(u.lang.split('-')[0]) &&
-      (v.name.includes('Amélie')||v.name.includes('Marie')||v.name.includes('Samantha')||v.name.toLowerCase().includes('female'))
-    ) || vs.find(v => v.lang.startsWith(u.lang.split('-')[0]));
-    if (vf) u.voice = vf;
-    u.onend = resolve; u.onerror = resolve;
+
+    // Détecter la langue du texte automatiquement
+    const hasArabic  = /[\u0600-\u06FF]/.test(text);
+    const hasLatin   = /[a-zA-Z]/.test(text);
+    const detectedLang = hasArabic ? 'ar' : (lang || 'fr');
+
+    const langMap = { fr:'fr-FR', ar:'ar-SA', wo:'fr-FR' };
+    u.lang  = langMap[detectedLang] || 'fr-FR';
+    u.rate  = detectedLang === 'ar' ? 0.85 : 0.92;
+    u.pitch = 1.0;
+
+    const voices = window.speechSynthesis.getVoices();
+
+    // Chercher une voix arabe si texte arabe
+    let voice = null;
+    if (detectedLang === 'ar') {
+      voice = voices.find(v => v.lang.startsWith('ar'));
+    } else {
+      voice = voices.find(v =>
+        v.lang.startsWith('fr') &&
+        (v.name.includes('Amélie') || v.name.includes('Marie') ||
+         v.name.includes('Samantha') || v.name.toLowerCase().includes('female'))
+      ) || voices.find(v => v.lang.startsWith('fr'));
+    }
+
+    if (voice) {
+      u.voice = voice;
+    } else if (detectedLang === 'ar') {
+      // Pas de voix arabe disponible — afficher un avertissement
+      console.warn('Aucune voix arabe disponible sur ce navigateur');
+      // Lire quand même avec la voix par défaut
+    }
+
+    u.onend  = resolve;
+    u.onerror = resolve;
     window.speechSynthesis.speak(u);
   });
 }
