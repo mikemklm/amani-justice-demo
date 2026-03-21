@@ -35,7 +35,7 @@ export default async function handler(req, res) {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
-          'Content-Type': 'audio/wav',
+          'Content-Type': req.headers['content-type'] || 'audio/webm', // ← prend le type du client
         },
         body: audioBuffer,
       }
