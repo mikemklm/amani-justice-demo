@@ -27,11 +27,10 @@ export default async function handler(req, res) {
     const contentType = req.headers['content-type'] || 'audio/webm';
     console.log(`Audio: ${audioBuffer.length} bytes, type: ${contentType}`);
 
-    // FormData pour Groq (même format qu'OpenAI)
-    const { FormData, Blob } = await import('node:buffer').catch(() => ({}));
-    
-    const form = new (globalThis.FormData || FormData)();
-    form.append('file', new (globalThis.Blob || Blob)([audioBuffer], { type: contentType }), 'audio.webm');
+    // FormData natif Node.js 18+ (Vercel l'a)
+    const form = new FormData();
+    const blob = new Blob([audioBuffer], { type: contentType });
+    form.append('file', blob, 'audio.webm');
     form.append('model', 'whisper-large-v3');
     form.append('response_format', 'json');
 
@@ -45,4 +44,17 @@ export default async function handler(req, res) {
     );
 
     const responseText = await groqRes.text();
-    console.log(`Groq ${groqRes.status}: ${respons
+    console.log(`Groq ${groqRes.status}: ${responseText.slice(0, 200)}`);
+
+    if (!groqRes.ok) {
+      return res.status(500).json({ error: `Groq erreur ${groqRes.status}: ${responseText.slice(0, 150)}` });
+    }
+
+    const data = JSON.parse(responseText);
+    return res.status(200).json({ text: data.text || '' });
+
+  } catch (err) {
+    console.error('transcribe error:', err.message);
+    return res.status(500).json({ error: err.message });
+  }
+}
