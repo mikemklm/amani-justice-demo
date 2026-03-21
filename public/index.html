@@ -16,7 +16,6 @@
   html{scroll-behavior:smooth}
   body{font-family:'DM Sans',sans-serif;background:var(--sand);color:var(--text);min-height:100vh;overflow-x:hidden}
   body::before{content:'';position:fixed;inset:0;background-image:repeating-linear-gradient(60deg,rgba(192,90,50,.03) 0,rgba(192,90,50,.03) 1px,transparent 1px,transparent 44px),repeating-linear-gradient(-60deg,rgba(192,90,50,.03) 0,rgba(192,90,50,.03) 1px,transparent 1px,transparent 44px);pointer-events:none;z-index:0}
-
   nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.3rem 3rem;background:rgba(244,237,224,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
   .logo-wrap{display:flex;flex-direction:column}
   .logo-main{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--terracotta);letter-spacing:.06em;line-height:1}
@@ -27,7 +26,6 @@
   .nav-right{display:flex;gap:.4rem}
   .lang-btn{font-size:.7rem;padding:.28rem .65rem;border:1px solid var(--border);background:transparent;border-radius:30px;cursor:pointer;color:var(--text-muted);font-family:'DM Sans',sans-serif;letter-spacing:.08em;transition:all .2s}
   .lang-btn.active,.lang-btn:hover{background:var(--terracotta);border-color:var(--terracotta);color:#fff}
-
   .hero{position:relative;z-index:1;min-height:100vh;display:grid;place-items:center;padding:8rem 2rem 5rem;text-align:center}
   .arch{position:absolute;top:70px;left:50%;transform:translateX(-50%);width:min(640px,88vw);height:300px;border:1px solid rgba(192,90,50,.1);border-radius:50% 50% 0 0/100% 100% 0 0;pointer-events:none}
   .arch-inner{position:absolute;top:90px;left:50%;transform:translateX(-50%);width:min(500px,70vw);height:240px;border:1px solid rgba(192,90,50,.05);border-radius:50% 50% 0 0/100% 100% 0 0;pointer-events:none}
@@ -38,7 +36,6 @@
   .hero-title .w1{color:var(--text)}
   .hero-title .w2{font-style:italic;color:var(--terracotta);display:block}
   .hero-desc{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2.5vw,1.3rem);font-weight:300;color:var(--text-muted);margin:1.4rem 0 3rem;max-width:480px;line-height:1.65;animation:fadeUp .7s .16s ease both}
-
   .voice-zone{display:flex;flex-direction:column;align-items:center;gap:1.4rem;animation:fadeUp .7s .28s ease both}
   .orb-outer{position:relative;width:152px;height:152px;cursor:pointer;-webkit-tap-highlight-color:transparent}
   .pulse-ring{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(192,90,50,.22);animation:orbPulse 3.2s ease-in-out infinite}
@@ -62,12 +59,11 @@
   .waveform.on{opacity:1}
   .wb{width:3px;border-radius:3px;background:linear-gradient(to top,var(--terra-dark),var(--terra-light));animation:waveUp .75s ease-in-out infinite alternate}
   .wb:nth-child(1){height:7px;animation-delay:.00s}.wb:nth-child(2){height:18px;animation-delay:.08s}.wb:nth-child(3){height:29px;animation-delay:.14s}.wb:nth-child(4){height:14px;animation-delay:.20s}.wb:nth-child(5){height:26px;animation-delay:.05s}.wb:nth-child(6){height:20px;animation-delay:.18s}.wb:nth-child(7){height:10px;animation-delay:.11s}.wb:nth-child(8){height:24px;animation-delay:.22s}.wb:nth-child(9){height:16px;animation-delay:.07s}.wb:nth-child(10){height:8px;animation-delay:.16s}
-  .vad-bar{width:200px;height:4px;background:var(--sand-mid);border-radius:2px;overflow:hidden;opacity:0;transition:opacity .3s}
+  .vad-bar{width:200px;height:6px;background:var(--sand-mid);border-radius:3px;overflow:hidden;opacity:0;transition:opacity .3s}
   .vad-bar.on{opacity:1}
-  .vad-fill{height:100%;width:0%;background:linear-gradient(to right,var(--terra-dark),var(--terra-light));border-radius:2px;transition:width .08s}
+  .vad-fill{height:100%;width:0%;background:linear-gradient(to right,var(--terra-dark),var(--terra-light));border-radius:3px;transition:width .05s}
   .orb-label{font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)}
-  .status-text{font-family:'Cormorant Garamond',serif;font-size:1.08rem;font-weight:300;font-style:italic;color:var(--text-muted);min-height:1.4rem}
-
+  .status-text{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:300;font-style:italic;color:var(--text-muted);min-height:1.4rem;max-width:320px;text-align:center}
   .convo-zone{position:relative;z-index:1;max-width:640px;margin:0 auto 2rem;padding:0 2rem;display:flex;flex-direction:column;gap:1rem}
   .msg{padding:1.2rem 1.6rem;border-radius:2px;animation:fadeUp .3s ease;backdrop-filter:blur(8px)}
   .msg-amani{background:rgba(255,255,255,.45);border:1px solid var(--border);border-left:3px solid var(--terracotta)}
@@ -76,14 +72,12 @@
   .msg-amani .msg-speaker{color:var(--terracotta)}
   .msg-user .msg-speaker{color:var(--text-muted)}
   .msg-text{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:300;line-height:1.8;color:var(--text)}
-
   .conn-banner{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);display:none;align-items:center;gap:.6rem;padding:.55rem 1.2rem;border-radius:30px;font-size:.76rem;letter-spacing:.06em;backdrop-filter:blur(12px);z-index:300;white-space:nowrap}
   .conn-banner.show{display:flex}
   .conn-banner.error{background:rgba(180,50,30,.12);border:1px solid rgba(180,50,30,.25);color:#9A2020}
   .conn-banner.success{background:rgba(40,130,60,.1);border:1px solid rgba(40,130,60,.25);color:#1A6030}
   .conn-banner.info{background:rgba(192,90,50,.1);border:1px solid var(--border);color:var(--terracotta)}
   .conn-dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0;animation:dotPulse 1s ease-in-out infinite}
-
   .divider{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:1.2rem;max-width:400px;margin:0 auto;padding:1rem 2rem}
   .divider-line{flex:1;height:1px;background:linear-gradient(to right,transparent,var(--sand-dark),transparent)}
   .divider-gem{font-size:.7rem;color:var(--terracotta);opacity:.5;letter-spacing:.3em}
@@ -103,7 +97,6 @@
   footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.6rem 3rem;display:flex;align-items:center;justify-content:space-between}
   .footer-logo{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--terracotta);letter-spacing:.06em}
   .footer-copy,.footer-tag{font-size:.72rem;color:var(--text-muted);letter-spacing:.06em;text-transform:uppercase}
-
   @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
   @keyframes orbPulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.07);opacity:.5}}
   @keyframes orbPulseFast{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.15);opacity:.35}}
@@ -176,16 +169,9 @@
     <div class="feat"><div class="feat-num">06</div><div class="feat-title">Accès universel</div><div class="feat-desc">Gratuit, pour tous, avec une attention particulière aux zones rurales.</div></div>
   </div>
 </section>
-
-<div class="about-strip" id="about">
-  <p>Amani Justice démocratise l'accès au droit en Mauritanie.<br><strong>Aucune question n'est trop simple.</strong> Aucune région trop éloignée.</p>
-</div>
+<div class="about-strip" id="about"><p>Amani Justice démocratise l'accès au droit en Mauritanie.<br><strong>Aucune question n'est trop simple.</strong> Aucune région trop éloignée.</p></div>
 <p class="disclaimer">Amani Justice est un outil d'information juridique et ne remplace pas un avocat agréé.</p>
-<footer>
-  <div class="footer-logo">Amani Justice</div>
-  <div class="footer-copy">© 2025 · Mauritanie</div>
-  <div class="footer-tag">Accès au droit pour tous</div>
-</footer>
+<footer><div class="footer-logo">Amani Justice</div><div class="footer-copy">© 2025 · Mauritanie</div><div class="footer-tag">Accès au droit pour tous</div></footer>
 <div class="conn-banner" id="banner"><div class="conn-dot"></div><span id="bannerMsg"></span></div>
 
 <script>
@@ -203,8 +189,9 @@ let vadRAF        = null;
 let currentLang   = 'fr';
 let history       = [];
 
-const SILENCE_THRESHOLD = 0.012;
-const SILENCE_DELAY     = 1800;
+// Seuil adaptatif — sera calibré au démarrage
+let SILENCE_THRESHOLD = 0.008;
+const SILENCE_DELAY   = 1500;
 
 const GREETINGS = {
   fr: "Bonjour, je suis Amani, votre assistante juridique pour la Mauritanie. Comment puis-je vous aider aujourd'hui ?",
@@ -247,12 +234,10 @@ function endSession() {
   stopListening(false);
   window.speechSynthesis.cancel();
   setOrbState('idle');
-  setStatus('Session terminée');
+  setStatus('Session terminée — cliquez pour recommencer');
   orbLabel.textContent = labelFor('start');
   waveform.classList.remove('on');
   vadBar.classList.remove('on');
-  showBanner('Conversation terminée', 'info');
-  setTimeout(hideBanner, 2000);
 }
 
 // ═══════════════════════════════════════════════════════
@@ -264,12 +249,16 @@ async function startListening() {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     audioChunks = [];
 
-    audioCtxVAD  = new AudioContext();
-    const src    = audioCtxVAD.createMediaStreamSource(stream);
-    analyserVAD  = audioCtxVAD.createAnalyser();
-    analyserVAD.fftSize = 512;
+    // VAD via AnalyserNode sur le même stream
+    audioCtxVAD = new (window.AudioContext || window.webkitAudioContext)();
+    const src   = audioCtxVAD.createMediaStreamSource(stream);
+    analyserVAD = audioCtxVAD.createAnalyser();
+    analyserVAD.fftSize       = 1024;
+    analyserVAD.smoothingTimeConstant = 0.3;
     src.connect(analyserVAD);
-    startVAD();
+
+    // Calibration bruit de fond (500ms)
+    await calibrateNoise();
 
     const mime = MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
       ? 'audio/webm;codecs=opus' : 'audio/webm';
@@ -278,43 +267,73 @@ async function startListening() {
     mediaRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks.push(e.data); };
     mediaRecorder.onstop = async () => {
       stream.getTracks().forEach(t => t.stop());
-      if (audioCtxVAD) { audioCtxVAD.close(); audioCtxVAD = null; }
+      if (audioCtxVAD) { try { audioCtxVAD.close(); } catch(e){} audioCtxVAD = null; }
       cancelAnimationFrame(vadRAF);
       vadBar.classList.remove('on');
       if (audioChunks.length > 0 && sessionActive) {
         await processUserAudio(new Blob(audioChunks, { type: mime }));
       }
     };
-    mediaRecorder.start();
+    mediaRecorder.start(100); // chunks de 100ms
     isListening = true;
     setOrbState('listening');
-    setStatus('Je vous écoute…');
     vadBar.classList.add('on');
+    startVAD();
+
   } catch(e) {
-    console.error(e);
-    showBanner('Erreur microphone', 'error');
+    console.error('Mic error:', e);
+    showBanner('Erreur microphone : ' + e.message, 'error');
   }
 }
 
-function stopListening(triggerStop = true) {
-  clearTimeout(silenceTimer);
-  silenceTimer = null;
-  cancelAnimationFrame(vadRAF);
-  isListening = false;
-  if (triggerStop && mediaRecorder && mediaRecorder.state !== 'inactive') {
-    mediaRecorder.stop();
-  }
+// Calibration bruit de fond
+async function calibrateNoise() {
+  return new Promise(resolve => {
+    const data    = new Float32Array(analyserVAD.fftSize);
+    let samples   = [];
+    let count     = 0;
+    const maxTicks = 25; // ~500ms à 60fps
+
+    function tick() {
+      analyserVAD.getFloatTimeDomainData(data);
+      const rms = Math.sqrt(data.reduce((s,v)=>s+v*v,0)/data.length);
+      samples.push(rms);
+      count++;
+      setStatus(`Calibration micro… ${Math.round(count/maxTicks*100)}%`);
+      if (count < maxTicks) {
+        requestAnimationFrame(tick);
+      } else {
+        const avgNoise = samples.reduce((a,b)=>a+b,0)/samples.length;
+        // Seuil = bruit de fond × 3 (minimum 0.005)
+        SILENCE_THRESHOLD = Math.max(0.005, avgNoise * 3);
+        console.log(`Bruit de fond: ${avgNoise.toFixed(5)} | Seuil VAD: ${SILENCE_THRESHOLD.toFixed(5)}`);
+        resolve();
+      }
+    }
+    requestAnimationFrame(tick);
+  });
 }
 
 function startVAD() {
   const data = new Float32Array(analyserVAD.fftSize);
   let speechDetected = false;
+  let maxRms = 0;
+
   function tick() {
     if (!isListening) return;
     vadRAF = requestAnimationFrame(tick);
+
     analyserVAD.getFloatTimeDomainData(data);
-    const rms = Math.sqrt(data.reduce((s,v) => s+v*v, 0) / data.length);
-    vadFill.style.width = Math.min(100, (rms/0.12)*100) + '%';
+    const rms = Math.sqrt(data.reduce((s,v)=>s+v*v,0)/data.length);
+
+    // DEBUG visible sous l'orbe
+    maxRms = Math.max(maxRms, rms);
+    setStatus(`Écoute… niveau: ${rms.toFixed(4)} | max: ${maxRms.toFixed(4)} | seuil: ${SILENCE_THRESHOLD.toFixed(4)}`);
+
+    // Barre visuelle proportionnelle au seuil
+    const pct = Math.min(100, (rms / (SILENCE_THRESHOLD * 4)) * 100);
+    vadFill.style.width = pct + '%';
+
     if (rms > SILENCE_THRESHOLD) {
       speechDetected = true;
       clearTimeout(silenceTimer);
@@ -323,11 +342,24 @@ function startVAD() {
       silenceTimer = setTimeout(() => {
         silenceTimer = null;
         speechDetected = false;
-        if (isListening && sessionActive) stopListening();
+        if (isListening && sessionActive) {
+          console.log('Silence détecté → envoi audio');
+          stopListening();
+        }
       }, SILENCE_DELAY);
     }
   }
   tick();
+}
+
+function stopListening(triggerStop = true) {
+  clearTimeout(silenceTimer);
+  silenceTimer = null;
+  isListening  = false;
+  cancelAnimationFrame(vadRAF);
+  if (triggerStop && mediaRecorder && mediaRecorder.state !== 'inactive') {
+    mediaRecorder.stop();
+  }
 }
 
 // ═══════════════════════════════════════════════════════
@@ -335,12 +367,13 @@ function startVAD() {
 // ═══════════════════════════════════════════════════════
 async function processUserAudio(blob) {
   setOrbState('thinking');
-  setStatus('Transcription…');
+  setStatus('Transcription en cours…');
   try {
     const wav = await blobToWav(blob);
     const transcription = await callTranscribe(wav);
 
     if (!transcription || transcription.trim().length < 2) {
+      setStatus('Audio non compris — je réecoute…');
       if (sessionActive) await startListening();
       return;
     }
@@ -362,9 +395,10 @@ async function processUserAudio(blob) {
     if (sessionActive) await startListening();
 
   } catch(err) {
-    console.error(err);
+    console.error('Pipeline error:', err);
     showBanner('Erreur — ' + (err.message || 'réessayez'), 'error');
-    if (sessionActive) setTimeout(() => startListening(), 2000);
+    setTimeout(hideBanner, 4000);
+    if (sessionActive) setTimeout(() => startListening(), 3000);
   }
 }
 
@@ -409,11 +443,11 @@ function speak(text, lang) {
 }
 
 // ═══════════════════════════════════════════════════════
-// AUDIO
+// AUDIO WAV
 // ═══════════════════════════════════════════════════════
 async function blobToWav(blob) {
-  const ab = await blob.arrayBuffer();
-  const ctx = new AudioContext({ sampleRate:16000 });
+  const ab  = await blob.arrayBuffer();
+  const ctx = new (window.AudioContext||window.webkitAudioContext)({ sampleRate:16000 });
   const dec = await ctx.decodeAudioData(ab);
   ctx.close();
   return encodeWAV(dec);
@@ -458,7 +492,7 @@ function addMessage(who, text) {
   el.scrollIntoView({behavior:'smooth',block:'end'});
 }
 function showBanner(m,t) { bannerMsg.textContent=m; banner.className=`conn-banner show ${t}`; }
-function hideBanner() { banner.classList.remove('show'); }
+function hideBanner()    { banner.classList.remove('show'); }
 function labelFor(s) {
   const L={fr:{start:'Appuyez pour démarrer',stop:'Appuyez pour terminer'},ar:{start:'اضغط للبدء',stop:'اضغط للإيقاف'},wo:{start:'Togg ngir dëkk',stop:'Togg ngir wëcc'}};
   return (L[currentLang]||L.fr)[s];
