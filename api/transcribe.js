@@ -13,10 +13,9 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
-    const token = process.env.HF_TOKEN;
-    if (!token) return res.status(500).json({ error: 'HF_TOKEN manquant dans Vercel' });
+    const token = process.env.GROQ_API_KEY;
+    if (!token) return res.status(500).json({ error: 'GROQ_API_KEY manquant dans Vercel' });
 
-    // Lire le body
     const chunks = [];
     for await (const chunk of req) chunks.push(chunk);
     const audioBuffer = Buffer.concat(chunks);
@@ -26,48 +25,24 @@ export default async function handler(req, res) {
     }
 
     const contentType = req.headers['content-type'] || 'audio/webm';
-    console.log(`Audio reçu: ${audioBuffer.length} bytes, type: ${contentType}`);
+    console.log(`Audio: ${audioBuffer.length} bytes, type: ${contentType}`);
 
-    // Nouvelle API HuggingFace (router, mars 2026)
-    const form = new FormData();
-    form.append(
-      'file',
-      new Blob([audioBuffer], { type: contentType }),
-      'audio.webm'
-    );
-    form.append('model', 'openai/whisper-large-v3-turbo');
+    // FormData pour Groq (même format qu'OpenAI)
+    const { FormData, Blob } = await import('node:buffer').catch(() => ({}));
+    
+    const form = new (globalThis.FormData || FormData)();
+    form.append('file', new (globalThis.Blob || Blob)([audioBuffer], { type: contentType }), 'audio.webm');
+    form.append('model', 'whisper-large-v3');
+    form.append('response_format', 'json');
 
-    const hfRes = await fetch(
-      'https://router.huggingface.co/hf-inference/models/openai/whisper-large-v3-turbo/v1/audio/transcriptions',
+    const groqRes = await fetch(
+      'https://api.groq.com/openai/v1/audio/transcriptions',
       {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
+        headers: { 'Authorization': `Bearer ${token}` },
         body: form,
       }
     );
 
-    const responseText = await hfRes.text();
-    console.log(`HF status: ${hfRes.status} | response: ${responseText.slice(0, 300)}`);
-
-    if (hfRes.status === 503) {
-      return res.status(503).json({ error: 'Modèle en cours de chargement, réessayez dans 20s' });
-    }
-
-    if (!hfRes.ok) {
-      return res.status(500).json({ error: `HF erreur ${hfRes.status}: ${responseText.slice(0, 150)}` });
-    }
-
-    try {
-      const data = JSON.parse(responseText);
-      return res.status(200).json({ text: data.text || '' });
-    } catch {
-      return res.status(500).json({ error: 'Réponse non-JSON: ' + responseText.slice(0, 100) });
-    }
-
-  } catch (err) {
-    console.error('transcribe error:', err);
-    return res.status(500).json({ error: err.message });
-  }
-}
+    const responseText = await groqRes.text();
+    console.log(`Groq ${groqRes.status}: ${respons
