@@ -31,7 +31,7 @@ export default async function handler(req, res) {
     console.log(`Audio reçu: ${audioBuffer.length} bytes, type: ${contentType}`);
 
     const hfRes = await fetch(
-      'https://api-inference.huggingface.co/models/openai/whisper-large-v3',
+      'https://api-inference.huggingface.co/models/openai/whisper-medium',
       {
         method: 'POST',
         headers: {
